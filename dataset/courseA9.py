@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 res = requests.get("http://course-query.acad.ncku.edu.tw/qry/qry002.php?syear=0106&sem=2&college_no=C&dept_no=A9&clweek=0&co_name=&lang=zh_tw")
 soup = BeautifulSoup(res.content, "html.parser")
 
-f = open('course.csv','w')
+f = open('courseA9.csv','w')
 i = 0
 s = ""
 isHumanities = False
