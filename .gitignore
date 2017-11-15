@@ -1,1 +1,4 @@
 *.odt#
+*.odt
+*.log
+t.py
