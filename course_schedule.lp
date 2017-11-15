@@ -1,12 +1,19 @@
 \ Model course_schedule
 \ LP format - for model browsing. Use MPS format to capture full model detail.
 Maximize
-  6 x_台語諺語與歷史文化 + 8 x_x人、動物與倫理
-   + 6 x_考古發現與歷史新貌 + x_流行樂賞析與實務
+  19 x_台語諺語與歷史文化 + 18 x_講台語看語言佮社會
+   + 12 x_歷史畫賞鑑 + 11 x_中國文學導論
+   + 21 x_短篇小說選讀 + 2 x_先秦兩漢儒家思想
+   + 10 x_考古發現與歷史新貌 + 5 x_實用中文及寫作
+   + 17 x_女性文學選讀 + 24 x_台灣傳統戲曲賞析
+   + 8 x_人、動物與倫理 + 7 x_戲劇與小說 + 9 x_戲劇賞析
+   + 13 x_古蹟與文化 + 14 x_流行樂賞析與實務
+   + 16 x_劇場表演與創意 + 3 x_客家文化導論
+   + 25 x_臺灣古典文學 + 26 x_中國哲學概論 + 4 x_戲劇製作
+   + 22 x_歷史通論
 Subject To
- R0: x_台語諺語與歷史文化 + x_x人、動物與倫理
-   + x_講台語看語言佮社會 + x_歷史畫賞鑑
-   + x_中國文學導論 + x_短篇小說選讀
+ R0: x_台語諺語與歷史文化 + x_講台語看語言佮社會
+   + x_歷史畫賞鑑 + x_中國文學導論 + x_短篇小說選讀
    + x_先秦兩漢儒家思想 + x_考古發現與歷史新貌
    + x_實用中文及寫作 + x_女性文學選讀
    + x_台灣傳統戲曲賞析 + x_人、動物與倫理
@@ -20,10 +27,10 @@ Subject To
  R4: - lessons_period_1_4 = 0
  R5: - lessons_period_1_5 = 0
  R6: - lessons_period_1_6 = 0
- R7: x_台語諺語與歷史文化 + x_x人、動物與倫理
-   + x_講台語看語言佮社會 - lessons_period_1_7 = 0
- R8: x_台語諺語與歷史文化 + x_x人、動物與倫理
-   + x_講台語看語言佮社會 - lessons_period_1_8 = 0
+ R7: x_台語諺語與歷史文化 + x_講台語看語言佮社會
+   - lessons_period_1_7 = 0
+ R8: x_台語諺語與歷史文化 + x_講台語看語言佮社會
+   - lessons_period_1_8 = 0
  R9: - lessons_period_1_9 = 0
  R10: x_實用中文及寫作 - lessons_period_2_1 = 0
  R11: x_實用中文及寫作 - lessons_period_2_2 = 0
@@ -120,14 +127,13 @@ Bounds
  lessons_period_5_8 <= 1
  lessons_period_5_9 <= 1
 Binaries
- x_台語諺語與歷史文化 x_x人、動物與倫理
- x_講台語看語言佮社會 x_歷史畫賞鑑 x_中國文學導論
- x_短篇小說選讀 x_先秦兩漢儒家思想
- x_考古發現與歷史新貌 x_實用中文及寫作 x_女性文學選讀
- x_台灣傳統戲曲賞析 x_人、動物與倫理 x_戲劇與小說
- x_戲劇賞析 x_古蹟與文化 x_流行樂賞析與實務
- x_劇場表演與創意 x_客家文化導論 x_臺灣古典文學
- x_中國哲學概論 x_戲劇製作 x_歷史通論
+ x_台語諺語與歷史文化 x_講台語看語言佮社會
+ x_歷史畫賞鑑 x_中國文學導論 x_短篇小說選讀
+ x_先秦兩漢儒家思想 x_考古發現與歷史新貌
+ x_實用中文及寫作 x_女性文學選讀 x_台灣傳統戲曲賞析
+ x_人、動物與倫理 x_戲劇與小說 x_戲劇賞析 x_古蹟與文化
+ x_流行樂賞析與實務 x_劇場表演與創意 x_客家文化導論
+ x_臺灣古典文學 x_中國哲學概論 x_戲劇製作 x_歷史通論
 Generals
  lessons_period_1_1 lessons_period_1_2 lessons_period_1_3
  lessons_period_1_4 lessons_period_1_5 lessons_period_1_6
