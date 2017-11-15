@@ -40,25 +40,41 @@ m = Model("course_schedule")
 for n in name:
     x[n] = m.addVar(vtype=GRB.BINARY, name="x_%s"%n)
     
-for i in range(WEEK):
-    for j in range(LESSONS_PER_DAY):
+for i in range(1, WEEK+1):
+    for j in range(1, LESSONS_PER_DAY+1):
         lessons_period[i, j] = m.addVar(vtype=GRB.INTEGER, ub=1, name="lessons_period_%d_%d"%(int(i), int(j)))
+
+#lessons_period[1, 7] = 1;
+#lessons_period[1, 8] = 1;
 
 m.update()
 
 m.setObjective(quicksum(x[n] * f[n] for n in name), GRB.MAXIMIZE)
 
-m.addConstr(quicksum(x[n] for n in name) == 3)
+m.addConstr(quicksum(x[n] for n in name) == 2)
+for n in name:
+    print("%d, %d, %d"%(w[n], s[n], e[n]))
+#m.addConstr(quicksum(x[n]*w[n] for n in name if w[n] == i and s[n] == j) == lessons_period[i, j])
+for i in range(1, WEEK+1):
+    for j in range(1, LESSONS_PER_DAY+1):
+        m.addConstr(quicksum(x[n] for n in name if w[n] == i and (s[n] == j or e[n] == j)) == lessons_period[i, j])
 
 m.optimize()
 m.write("course_schedule.lp")
 
-print ("Optimal objective value is %g"%m.objVal)
 if m.status == GRB.Status.OPTIMAL:
-    solution = m.getAttr('x', x)
+    print ("Optimal objective value is %g"%m.objVal)
+    solution = m.getAttr("x", x)
     for n in name :
         if solution[n] == 1:
             print("%s"%n)
+
+    #solution_p = m.getAttr("x", lessons_period)
+    for i in range(1, WEEK+1):
+        for j in range(1, LESSONS_PER_DAY+1):
+            if solution_p[i, j] == 1:
+                print("%d %d"%(i, j))
+        
 
 
 
