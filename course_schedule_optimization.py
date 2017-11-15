@@ -42,10 +42,20 @@ for n in name:
     
 for i in range(1, WEEK+1):
     for j in range(1, LESSONS_PER_DAY+1):
-        lessons_period[i, j] = m.addVar(vtype=GRB.INTEGER, ub=1, name="lessons_period_%d_%d"%(int(i), int(j)))
-
-#lessons_period[1, 7] = 1;
-#lessons_period[1, 8] = 1;
+        if i == 1 and (j == 5 or j == 6 or j == 7):
+            # 製造資訊
+            lessons_period[i, j] = m.addVar(vtype=GRB.INTEGER, ub=0, name="lessons_period_%d_%d"%(int(i), int(j)))
+        elif i == 3 and (j == 6 or j == 7 or j == 8):
+            # 訊號與系統
+            lessons_period[i, j] = m.addVar(vtype=GRB.INTEGER, ub=0, name="lessons_period_%d_%d"%(int(i), int(j)))
+        elif i == 4 and (j == 7 or j == 8 or j == 9):
+            # 程式語言
+            lessons_period[i, j] = m.addVar(vtype=GRB.INTEGER, ub=0, name="lessons_period_%d_%d"%(int(i), int(j)))
+        elif i == 5 and (j == 2 or j == 3 or j == 4):
+            # 編譯系統
+            lessons_period[i, j] = m.addVar(vtype=GRB.INTEGER, ub=0, name="lessons_period_%d_%d"%(int(i), int(j)))
+        else:
+            lessons_period[i, j] = m.addVar(vtype=GRB.INTEGER, ub=1, name="lessons_period_%d_%d"%(int(i), int(j)))
 
 m.update()
 
@@ -54,7 +64,7 @@ m.setObjective(quicksum(x[n] * f[n] for n in name), GRB.MAXIMIZE)
 m.addConstr(quicksum(x[n] for n in name) == 2)
 for n in name:
     print("%d, %d, %d"%(w[n], s[n], e[n]))
-#m.addConstr(quicksum(x[n]*w[n] for n in name if w[n] == i and s[n] == j) == lessons_period[i, j])
+
 for i in range(1, WEEK+1):
     for j in range(1, LESSONS_PER_DAY+1):
         m.addConstr(quicksum(x[n] for n in name if w[n] == i and (s[n] == j or e[n] == j)) == lessons_period[i, j])
@@ -69,17 +79,8 @@ if m.status == GRB.Status.OPTIMAL:
         if solution[n] == 1:
             print("%s"%n)
 
-    #solution_p = m.getAttr("x", lessons_period)
+    solution_p = m.getAttr("x", lessons_period)
     for i in range(1, WEEK+1):
         for j in range(1, LESSONS_PER_DAY+1):
             if solution_p[i, j] == 1:
                 print("%d %d"%(i, j))
-        
-
-
-
-
-
-
-
-
