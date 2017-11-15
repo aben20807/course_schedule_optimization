@@ -61,8 +61,6 @@ m.update()
 m.setObjective(quicksum(x[n] * f[n] for n in name), GRB.MAXIMIZE)
 
 m.addConstr(quicksum(x[n] for n in name) == 2)
-for n in name:
-    print("%d, %d, %d"%(w[n], s[n], e[n]))
 
 for i in range(1, WEEK+1):
     for j in range(1, LESSONS_PER_DAY+1):
