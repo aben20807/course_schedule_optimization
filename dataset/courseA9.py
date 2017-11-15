@@ -13,7 +13,7 @@ for eachSoup in soup.select('td'):
     if tmp == "人文學":
         isHumanities = True
         s = str(i) + ", "
-    if tmp.startswith("104"): # skip 哲學與藝術, 公民與歷史
+    if tmp.startswith("104") or tmp.startswith("哲學思考系列"): # skip 哲學與藝術, 公民與歷史, 哲學思考系列(0.5學分)
         isHumanities = False
         s = str(i) + ", "
     if tmp == "否" and isHumanities: # end of each course
