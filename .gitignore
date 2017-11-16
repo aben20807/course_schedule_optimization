@@ -1,4 +1,6 @@
 *.odt#
 *.odt
 *.log
+*.zip
+OR_miniproject_*/
 t.py
